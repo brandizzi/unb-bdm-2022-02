@@ -26,6 +26,19 @@ spec:
             limits:
               memory: "2Gi"
               cpu: "1"
+      tolerations:
+      - key: "restricted.app"
+        operator: "Equal"
+        value: "elasticsearch"
+        effect: "NoSchedule"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "expected.app"
+                operator: "In"
+                values: ["elasticsearch"]
 ---
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
