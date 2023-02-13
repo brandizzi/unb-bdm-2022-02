@@ -1,0 +1,256 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: neo4j
+---
+---
+# Source: neo4j-ce/templates/neo4j-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: neo4j-ce-1-neo4j-secret
+  namespace: neo4j
+  labels:
+    app.kubernetes.io/name: "neo4j-ce-1"
+    app.kubernetes.io/component: "neo4j-ce"
+type: Opaque
+data:
+  username: "bmVvNGo="
+  password: "JHkkajlUJHJMc0s5Q3JWTXFpM0VJTWdrMnhObi8kOVVpVHFYM0g5aG1kMFNWQ2hBakpIZ0VZa08zSXRXckVGZXVsRGFEazQvQw=="
+---
+# Source: neo4j-ce/templates/neo4j-pvc.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: neo4j-ce-1-neo4j-pvc
+  namespace: neo4j
+  labels:
+    app.kubernetes.io/name: "neo4j-ce-1"
+    app.kubernetes.io/component: "neo4j-mancenter"
+spec:
+  accessModes: [ "ReadWriteOnce" ]
+  resources:
+    requests:
+      storage: "20Gi"
+  storageClassName: "standard"
+---
+# Source: neo4j-ce/templates/neo4j-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: "neo4j-ce-1-neo4j-svc"
+  namespace: neo4j
+  labels:
+    app.kubernetes.io/name: "neo4j-ce-1"
+    app.kubernetes.io/component: "neo4j-ce"
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: "neo4j-ce-1"
+    app.kubernetes.io/component: "neo4j-ce"
+  ports:
+  - name: browser
+    port: 7474
+  - name: bolt
+    port: 7687
+---
+# Source: neo4j-ce/templates/neo4j-statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: neo4j-ce-1
+  namespace: neo4j
+  labels: &Neo4jDeploymentLabels
+    app.kubernetes.io/name: "neo4j-ce-1"
+    app.kubernetes.io/component: "neo4j-ce"
+spec:
+  serviceName: "neo4j-ce-1-neo4j-svc"
+  replicas: 1
+  selector:
+    matchLabels: *Neo4jDeploymentLabels
+  template:
+    metadata:
+      labels: *Neo4jDeploymentLabels
+    spec:
+      containers:
+      - name: neo4j-ce
+        image: "marketplace.gcr.io/google/neo4j4:4.3"
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "200m"
+          limits:
+            memory: "2Gi"
+            cpu: "4"
+        ports:
+        - name: browser
+          containerPort: 7474
+        - name: bolt
+          containerPort: 7687
+        resources:
+          requests:
+            memory: 512Mi
+            cpu: 300m
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 7474
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 7474
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 10
+        volumeMounts:
+        - name: neo4j-storage
+          mountPath: /var/lib/neo4j/data
+        env:
+        - name: ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: "neo4j-ce-1-neo4j-secret"
+              key: username
+        - name: ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: "neo4j-ce-1-neo4j-secret"
+              key: password
+        - name: NEO4J_AUTH
+          value: $(ROOT_USERNAME)/$(ROOT_PASSWORD)
+        - name: NEO4J_dbms_connector_bolt_listen__address
+          value: 0.0.0.0:7687
+        - name: NEO4J_dbms_connector_http_listen__address
+          value: 0.0.0.0:7474
+        - name: JAVA_OPTS
+          value: >-
+                -Dlog4j2.formatMsgNoLookups=true
+                -Dlog4j2.disable.jmx=true
+      volumes:
+      - name: neo4j-storage
+        persistentVolumeClaim:
+          claimName: neo4j-ce-1-neo4j-pvc
+      tolerations:
+      - key: "restricted.app"
+        operator: "Equal"
+        value: "neo4j"
+        effect: "NoSchedule"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "expected.app"
+                operator: "In"
+                values: ["neo4j"]
+---
+# Source: neo4j-ce/templates/application.yaml
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: neo4j-ce-1
+  namespace: neo4j
+  annotations:
+    kubernetes-engine.cloud.google.com/icon: >-
+      data:image/png;base64,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
+    marketplace.cloud.google.com/deploy-info: '{"partner_id": "click-to-deploy-containers", "product_id": "neo4j-ce", "partner_name": "Google Click to Deploy"}'
+  labels:
+    app.kubernetes.io/name: neo4j-ce-1
+spec:
+  descriptor:
+    type: Neo4j
+    version: "4.3"
+    description: |-
+      Neo4j Community Edition is an open source graph database management system, written in Java.
+      It provides a web dashboard for managing data and users. You can access its service by using an HTTP REST API or the Bolt binary protocol.
+
+      The Community Edition is not production-ready. It is ideal for learning or small projects.
+      It does not support clustering, sharding data, or advanced indexes.
+
+      # Support
+      Google does not offer support for this solution. However, community support is available on
+      [Stack Overflow](https://stackoverflow.com/questions/tagged/neo4j/).
+
+      Additional support is available on the [official Neo4j Community website](https://community.neo4j.com).
+    maintainers:
+    - name: Google Click to Deploy
+      url: https://cloud.google.com/solutions/#click-to-deploy
+    links:
+    - description: 'User Guide: Google Click to Deploy Neo4j Community'
+      url: https://github.com/GoogleCloudPlatform/click-to-deploy/blob/master/k8s/neo4j-ce/README.md
+    - description: 'Getting started with Neo4j'
+      url: https://neo4j.com/developer/get-started/
+    - description: Neo4j 4.x Reference Manual
+      url: https://neo4j.com/docs/
+    - description: Neo4j Code Samples Repository
+      url: https://github.com/neo4j-examples
+
+    notes: |-
+      Neo4j Community Edition is exposed through a ClusterIP-only service, `neo4j-ce-1-neo4j-svc`.
+      You can connect to the Neo4j Browser from your local environment by using `kubectl port-forward`.
+
+      You can forward Neo4j's ports to your local machine by using the port forwarding feature of `kubectl`.
+
+      To expose the Neo4j Browser port, run the following command in the background:
+
+      ```shell
+      kubectl port-forward \
+        --namespace neo4j \
+        svc/neo4j-ce-1-neo4j-svc \
+        7474:7474 &
+      ```
+
+      To expose the Neo4j Bolt port, run the following command:
+
+      ```shell
+      kubectl port-forward \
+        --namespace neo4j \
+        svc/neo4j-ce-1-neo4j-svc \
+        7687:7687 &
+      ```
+
+      After that, you can access the Neo4j Browser at [http://localhost:7474](http://localhost:7474).
+
+  info:
+  - name: Neo4j Service
+    type: Reference
+    valueFrom:
+      serviceRef:
+        name: "neo4j-ce-1-neo4j-svc"
+  - name: Forward Neo4j Browser port locally
+    value: kubectl port-forward --namespace neo4j svc/neo4j-ce-1-neo4j-svc 7474:7474
+  - name: Forward Neo4j Service port locally
+    value: kubectl port-forward --namespace neo4j svc/neo4j-ce-1-neo4j-svc 7687:7687
+  - name: Neo4j Browser (local only)
+    value: http://localhost:7474/browser/
+  - name: Root Username
+    type: Reference
+    valueFrom:
+      secretKeyRef:
+        key: username
+        name: neo4j-ce-1-neo4j-secret
+  - name: Root Password
+    type: Reference
+    valueFrom:
+      secretKeyRef:
+        key: password
+        name: neo4j-ce-1-neo4j-secret
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: neo4j-ce-1
+  componentKinds:
+  - group: v1
+    kind: Secret
+  - group: v1
+    kind: Service
+  - group: apps/v1
+    kind: StatefulSet
+  - group: v1
+    kind: PersistentVolumeClaim
