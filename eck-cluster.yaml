@@ -44,6 +44,7 @@ apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
 metadata:
   name: bdm-2022-02
+  namespace: elasticsearch
 spec:
   version: 8.6.1
   count: 1
