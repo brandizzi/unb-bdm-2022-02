@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgpool
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgpool
+  template:
+    metadata:
+      labels:
+        app: pgpool
+    spec:
+      containers:
+      - name: pgpool
+        image: pgpool/pgpool:4.2
+        volumeMounts:
+        - name: pgpool-config
+          mountPath: /usr/local/pgpool-II/etc
+      - name: pgpool-stats
+        image: pgpool/pgpool2_exporter:1.0
+      volumes:
+      - name: pgpool-config
+        configMap:
+          name: pgpool-config
