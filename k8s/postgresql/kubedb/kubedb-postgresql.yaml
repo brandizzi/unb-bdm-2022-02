@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: postgresql
+  name: demo
 ---
 apiVersion: kubedb.com/v1alpha2
 kind: Postgres
 metadata:
   name: bdm-2022-02
-  namespace: postgresql
+  namespace: demo
 spec:
   version: "15.1"
   replicas: 3
