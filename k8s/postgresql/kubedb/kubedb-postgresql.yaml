@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: postgresql
+---
+apiVersion: kubedb.com/v1alpha2
+kind: Postgres
+metadata:
+  name: bdm-2022-02
+  namespace: postgresql
+spec:
+  version: "15.1"
+  replicas: 3
+  standbyMode: Hot
+  storageType: Durable
+  storage:
+    storageClassName: "standard"
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 10Gi
+  podTemplate:
+    spec:
+      tolerations:
+      - effect: NoSchedule
+        key: restricted.app
+        operator: Equal
+        value: postgresql
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: expected.app
+                operator: In
+                values:
+                - postgresql
+      resources:
+        requests:
+          memory: "2Gi"
+          cpu: "200m"
+        limits:
+          memory: "2Gi"
+          cpu: "4"
+  terminationPolicy: WipeOut
