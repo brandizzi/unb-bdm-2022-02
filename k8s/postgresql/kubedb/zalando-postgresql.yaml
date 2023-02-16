@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: postgresql
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: bdm-2022-02-zalando
+  namespace: postgresql
+spec:
+  teamId: "acid"
+  volume:
+    size: "10Gi"
+  numberOfInstances: 3
+  users:
+    zalando:
+    - superuser
+    - createdb
+    admin:
+    - superuser
+    - createdb
+  databases:
+    viagens: admin
+  postgresql:
+    version: "15"
+  resources:
+    requests:
+      memory: "2Gi"
+      cpu: "200m"
+    limits:
+      memory: "2Gi"
+      cpu: "4"
+  tolerations:
+  - effect: NoSchedule
+    key: restricted.app
+    operator: Equal
+    value: postgresql
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: expected.app
+          operator: In
+          values:
+          - postgresql
+

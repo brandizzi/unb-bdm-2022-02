@@ -1,0 +1,358 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      reload: cfFxlLfp
+    creationTimestamp: "2023-02-13T23:14:46Z"
+    generateName: kubedb-kubedb-provisioner-9f645f89d-
+    labels:
+      app.kubernetes.io/instance: kubedb
+      app.kubernetes.io/name: kubedb-provisioner
+      pod-template-hash: 9f645f89d
+    name: kubedb-kubedb-provisioner-9f645f89d-rfwcb
+    namespace: kubedb
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: kubedb-kubedb-provisioner-9f645f89d
+      uid: fd216cc7-938c-41fa-8c35-f70b1c698e3d
+    resourceVersion: "5266172"
+    uid: c99e0f5a-1482-422b-80fb-bcf76082d5ba
+  spec:
+    containers:
+    - args:
+      - operator
+      - --v=3
+      - --use-kubeapiserver-fqdn-for-aks=true
+      - --metrics-bind-address=:8080
+      - --health-probe-bind-address=:8081
+      - --license-file=/var/run/secrets/appscode/license/key.txt
+      env:
+      - name: POD_NAME
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.name
+      - name: POD_NAMESPACE
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.namespace
+      - name: POD_SERVICE_ACCOUNT
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: spec.serviceAccountName
+      image: ghcr.io/kubedb/kubedb-provisioner:v0.31.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /healthz
+          port: probes
+          scheme: HTTP
+        initialDelaySeconds: 15
+        periodSeconds: 20
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: operator
+      ports:
+      - containerPort: 8080
+        name: metrics
+        protocol: TCP
+      - containerPort: 8081
+        name: probes
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /readyz
+          port: probes
+          scheme: HTTP
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources: {}
+      securityContext: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /tmp
+        name: tmpdir
+      - mountPath: /var/run/secrets/appscode/license
+        name: license
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-x9989
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: gke-neo4j-ce-cluster-postgresql-91c2e90a-gg99
+    nodeSelector:
+      kubernetes.io/os: linux
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: kubedb-kubedb-provisioner
+    serviceAccountName: kubedb-kubedb-provisioner
+    terminationGracePeriodSeconds: 30
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: expected.app
+              operator: In
+              values:
+              - postgresql
+    tolerations:
+    - effect: NoSchedule
+      key: restricted.app
+      operator: Equal
+      value: postgresql
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - emptyDir: {}
+      name: tmpdir
+    - name: license
+      secret:
+        defaultMode: 420
+        secretName: kubedb-kubedb-provisioner-license
+    - name: kube-api-access-x9989
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2023-02-13T23:14:46Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2023-02-13T23:15:27Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2023-02-13T23:15:27Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2023-02-13T23:14:46Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://d107d4faa00ba530e8376fa5814c70465b1c1cdb33eb53b875baa86283a261bd
+      image: ghcr.io/kubedb/kubedb-provisioner:v0.31.0
+      imageID: ghcr.io/kubedb/kubedb-provisioner@sha256:9548a46c96ca8d0519e0e0d97d8e5bbb816d8add70863f6ce8bcd5e92ea80b74
+      lastState: {}
+      name: operator
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2023-02-13T23:14:53Z"
+    hostIP: 10.138.0.25
+    phase: Running
+    podIP: 10.100.5.2
+    podIPs:
+    - ip: 10.100.5.2
+    qosClass: BestEffort
+    startTime: "2023-02-13T23:14:46Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      reload: CHiyypUv
+    creationTimestamp: "2023-02-13T23:18:22Z"
+    generateName: kubedb-kubedb-webhook-server-5977486bc6-
+    labels:
+      app.kubernetes.io/instance: kubedb
+      app.kubernetes.io/name: kubedb-webhook-server
+      pod-template-hash: 5977486bc6
+    name: kubedb-kubedb-webhook-server-5977486bc6-5zdg9
+    namespace: kubedb
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: kubedb-kubedb-webhook-server-5977486bc6
+      uid: b9216d70-7863-4e5c-aca0-f142aac31fe5
+    resourceVersion: "5267911"
+    uid: 9b0c3c63-1428-4d58-bec0-6bc8a6ae097b
+  spec:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: expected.app
+              operator: In
+              values:
+              - postgresql
+    containers:
+    - args:
+      - run
+      - --v=3
+      - --secure-port=8443
+      - --audit-log-path=-
+      - --tls-cert-file=/var/serving-cert/tls.crt
+      - --tls-private-key-file=/var/serving-cert/tls.key
+      - --enable-mutating-webhook=true
+      - --enable-validating-webhook=true
+      - --use-kubeapiserver-fqdn-for-aks=true
+      - --license-file=/var/run/secrets/appscode/license/key.txt
+      env:
+      - name: POD_NAME
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.name
+      - name: POD_NAMESPACE
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.namespace
+      image: ghcr.io/kubedb/kubedb-webhook-server:v0.7.0
+      imagePullPolicy: IfNotPresent
+      name: operator
+      ports:
+      - containerPort: 8443
+        name: operator
+        protocol: TCP
+      resources: {}
+      securityContext: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /tmp
+        name: tmpdir
+      - mountPath: /var/serving-cert
+        name: serving-cert
+      - mountPath: /var/run/secrets/appscode/license
+        name: license
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-pnsjx
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: gke-neo4j-ce-cluster-postgresql-91c2e90a-3679
+    nodeSelector:
+      kubernetes.io/os: linux
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: kubedb-kubedb-webhook-server
+    serviceAccountName: kubedb-kubedb-webhook-server
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - key: restricted.app
+      operator: Equal
+      value: postgresql
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - emptyDir: {}
+      name: tmpdir
+    - name: serving-cert
+      secret:
+        defaultMode: 420
+        secretName: kubedb-kubedb-webhook-server-apiserver-cert
+    - name: license
+      secret:
+        defaultMode: 420
+        secretName: kubedb-kubedb-webhook-server-license
+    - name: kube-api-access-pnsjx
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2023-02-13T23:18:22Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2023-02-13T23:18:28Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2023-02-13T23:18:28Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2023-02-13T23:18:22Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://9a0cfde7eb4141a6a5b6204dd7b0feb7243dcb6ee86c515788112af8211d8dca
+      image: ghcr.io/kubedb/kubedb-webhook-server:v0.7.0
+      imageID: ghcr.io/kubedb/kubedb-webhook-server@sha256:fb5afe4dcb2d6116182cc18705cd7d2bb5f576bf09e15a941a742256d9de32ec
+      lastState: {}
+      name: operator
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2023-02-13T23:18:27Z"
+    hostIP: 10.138.0.24
+    phase: Running
+    podIP: 10.100.2.2
+    podIPs:
+    - ip: 10.100.2.2
+    qosClass: BestEffort
+    startTime: "2023-02-13T23:18:22Z"
+kind: List
+metadata:
+  resourceVersion: ""
