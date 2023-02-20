@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgpool
+  namespace: postgresql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgpool
+  template:
+    metadata:
+      labels:
+        app: pgpool
+    spec:
+      containers:
+      - name: pgpool
+        image: pgpool/pgpool:4.2
+        env: # https://github.com/pgpool/pgpool2_on_k8s/blob/master/docs/index.md#Register-password-to-pool_passwd
+        - name: "PGPOOL_PASSWORD_ENCRYPTION_METHOD" 
+          value: "md5"
+        - name: POSTGRES_USERNAME
+          valueFrom:
+             secretKeyRef:
+               name: postgres.bdm-2022-02-zalando.credentials.postgresql.acid.zalan.do
+               key: username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+             secretKeyRef:
+               name: postgres.bdm-2022-02-zalando.credentials.postgresql.acid.zalan.do
+               key: password
+        volumeMounts:
+        - name: pgpool-config
+          mountPath: /config
+      - name: pgpool-stats
+        image: pgpool/pgpool2_exporter:1.0
+      volumes:
+      - name: pgpool-config
+        configMap:
+          name: pgpool-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pgpool-config
+  namespace: postgresql
+  labels:
+    app: pgpool-config
+data:
+  pgpool.conf: |-
+    listen_addresses = '*'
+    port = 9999
+    socket_dir = '/var/run/postgresql'
+    pcp_listen_addresses = '*'
+    pcp_port = 9898
+    pcp_socket_dir = '/var/run/postgresql'
+    backend_hostname0 = '10.104.13.241'
+    backend_port0 = 5432
+    backend_weight0 = 1
+    backend_flag0 = 'DISALLOW_TO_FAILOVER'
+    backend_hostname1 = '10.104.1.107'
+    backend_port1 = 5432
+    backend_weight1 = 1
+    backend_flag1 = 'ALWAYS_PRIMARY|DISALLOW_TO_FAILOVER'
+    sr_check_user = 'postgres'
+    sr_check_password = 'md5f30cc13919a98f43789b1c31d59856b3'
+    sr_check_period = 10
+    enable_pool_hba = on
+    master_slave_mode = on
+    num_init_children = 32
+    max_pool = 4
+    child_life_time = 300
+    child_max_connections = 0
+    connection_life_time = 0
+    client_idle_limit = 0
+    connection_cache = on
+    load_balance_mode = on
+  pcp.conf: |-
+    postgres:md5f30cc13919a98f43789b1c31d59856b3
+  pool_hba.conf: |-
+    local   all         all                               trust
+    host    all         all         127.0.0.1/32          trust
+    host    all         all         ::1/128               trust
+    host    all         all         0.0.0.0/0             md5
