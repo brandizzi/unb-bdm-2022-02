@@ -1,0 +1,248 @@
+## Contar todas estacoess
+POST /viagens-*/_cache/clear
+
+GET viagens-*/_search
+{
+  "size": 0,
+  "track_total_hits": true,
+  "aggs": {
+    "estacoes": {
+      "cardinality": {
+        "field": "idEstacaoRetirada"
+      }
+    }
+  }
+}
+
+## Contar todos embarques
+
+POST /viagens-*/_cache/clear
+
+GET viagens-*/_search
+{
+  "size": 0,
+  "track_total_hits": true,
+  "query": {
+    "match_all": {}
+  }
+}
+
+## Contar todas viagens cujo embarque foi na extração Catedral Metropolitana (id 7)
+
+POST /viagens-*/_cache/clear
+
+GET viagens-*/_search
+{
+  "size": 0,
+  "track_total_hits": true,
+  "query": {
+    "match": {
+      "idEstacaoRetirada": 7
+    }
+  }
+}
+
+## Contar todas viagens cujo embarque foi na estação Catedral Metropolitana (id 7 ) e o Desembarque foi na estação Rodoviária (id 6)
+POST /viagens-*/_cache/clear
+
+GET viagens-*/_search
+{
+  "size": 0,
+  "track_total_hits": true,
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+           "idEstacaoRetirada": 7
+          }
+        },
+        {
+          "term": {
+           "idEstacaoDevolucao": 6
+          }
+        }
+      ]
+    }
+  }
+}
+
+## Contar todas viagens cujo embarque foi na extração Catedral Metropolitana (id 7 ) e o Desembarque foi na estação Rodoviária (id 6) e o Viajante é do Sexo Feminino
+POST /viagens-*/_cache/clear
+
+GET viagens-*/_search
+{
+  "size": 0,
+  "track_total_hits": true,
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+           "idEstacaoRetirada": 7
+          }
+        },
+        {
+          "term": {
+           "idEstacaoDevolucao": 6
+          }
+        },
+        {
+          "term": {
+            "sexo": "F"
+          }
+        }
+      ]
+    }
+  }
+}
+## Contar todas viagens cujo embarque foi em alguma estação onde o nome da estação contem a palavra 'Rodoviaria' 
+POST /viagens-*/_cache/clear
+
+GET viagens-*/_search
+{
+  "size": 0,
+  "track_total_hits": true,
+  "query": {
+    "match": {
+      "nomeEstacaoRetirada": {
+        "query": "Rodoviária"
+      }
+    }
+  }
+}
+## Contar todas viagens cujo embarque foi em alguma estação onde o nome da estação contem a palavra 'Rodoviaria' e a estação de desembarque foi o Memorial Jo (id 1)
+POST /viagens-*/_cache/clear
+
+GET viagens-*/_search
+{
+  "size": 0,
+  "track_total_hits": true,
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "match": {
+            "nomeEstacaoRetirada": {
+              "query": "Rodoviária"
+            }
+          }
+        },
+        {
+          "term": {
+            "idEstacaoDevolucao": 1
+          }
+        }
+      ]
+    }
+  }
+}
+## Contar todas viagens cujo embarque foi em alguma estação onde o nome da estação contem a palavra 'Rodoviaria', a estação de desembarque foi o Memorial Jo (id 1) e o viajante é do sexo Masculino
+POSTST /viagens-*/_cache/clear
+
+  GET viagens-*/_search
+  {
+    "size": 0,
+    "track_total_hits": true,
+    "query": {
+      "bool": {
+        "filter": [
+          {
+            "match": {
+              "nomeEstacaoRetirada": {
+                "query": "Rodoviária"
+              }
+            }
+          },
+          {
+            "term": {
+              "idEstacaoDevolucao": 1
+            }
+          },
+          {
+            "term": {
+              "sexo": "M"
+            }
+          }
+        ]
+      }
+    }
+  }
+## Contar todas viagens cujo tempo de duração é maior que 60 minutos
+POST /viagens-*/_cache/clear
+
+GET viagens-*/_search
+{
+  "size": 0,
+  "track_total_hits": true,
+  "query": {
+    "range": {
+      "duracao": {
+        "gte": 60
+      }
+    }
+  }
+}
+## Contar todas viagens cujo tempo de duração é maior que 60 minutos, o nome da estação contem a palavra 'Rodoviaria', a estação de desembarque foi o Memorial Jo (id 1) e o viajante é do sexo Masculino
+POST /viagens-*/_cache/clear
+
+GET viagens-*/_search
+{
+  "size": 0,
+  "track_total_hits": true,
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "range": {
+            "duracao": {
+              "gte": 60
+            }
+          }
+        },
+        {
+          "match": {
+            "nomeEstacaoRetirada": {
+              "query": "Rodoviária"
+            }
+          }
+        },
+        {
+          "term": {
+            "idEstacaoDevolucao": 1
+          }
+        },
+        {
+          "term": {
+            "sexo": "M"
+          }
+        }
+      ]
+    }
+  }
+}
+
+## Contar todas viagens cuja estação de retirada é igual à estaçaõ de devolução
+POST /viagens-*/_cache/clear
+
+GET viagens-*/_search
+{
+  "size": 0,
+  "track_total_hits": true,
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "exists": {
+            "field": "idEstacaoRetirada"
+          }
+        },
+        {
+          "script": {
+            "script": "doc['idEstacaoRetirada'] == doc['idEstacaoDevolucao']"
+          }
+        }
+      ]
+    }
+  }
+}
