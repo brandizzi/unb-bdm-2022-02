@@ -1,0 +1,3 @@
+-- Contar todas viagens cujo embarque foi em alguma estação onde o nome da estação contem a palavra 'Rodoviaria', a estação de desembarque foi o Memorial Jk (id 1) e o viajante é do sexo Masculino	
+select count(*) from "VIAGENSBICICLETAS".viagens viagem  inner join "VIAGENSBICICLETAS".viajantes viajante on viagem."idViajante" = viajante."idViajante" inner join "VIAGENSBICICLETAS".estacoes estacaoretirada on  viagem."idEstacaoRetirada"  = estacaoretirada."idEstacao" inner join  "VIAGENSBICICLETAS".estacoes estacaodevolucao on viagem."idEstacaoDevolucao"  = estacaodevolucao."idEstacao" where estacaoretirada."nomeEstacao" like '%Rodoviária%' and viagem."idEstacaoDevolucao" = 1 and viajante."sexo" = 'M';
+
