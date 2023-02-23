@@ -1,0 +1,61 @@
+Timing is on.
+  count  
+---------
+ 2589552
+(1 row)
+
+Time: 307.074 ms
+  count  
+---------
+ 2589552
+(1 row)
+
+Time: 283.137 ms
+  count  
+---------
+ 2589552
+(1 row)
+
+Time: 282.637 ms
+  count  
+---------
+ 2589552
+(1 row)
+
+Time: 274.134 ms
+  count  
+---------
+ 2589552
+(1 row)
+
+Time: 299.566 ms
+  count  
+---------
+ 2589552
+(1 row)
+
+Time: 277.421 ms
+  count  
+---------
+ 2589552
+(1 row)
+
+Time: 309.936 ms
+  count  
+---------
+ 2589552
+(1 row)
+
+Time: 289.873 ms
+  count  
+---------
+ 2589552
+(1 row)
+
+Time: 320.506 ms
+  count  
+---------
+ 2589552
+(1 row)
+
+Time: 322.813 ms

@@ -1,0 +1,61 @@
+Timing is on.
+ count 
+-------
+  1376
+(1 row)
+
+Time: 497.590 ms
+ count 
+-------
+  1376
+(1 row)
+
+Time: 467.774 ms
+ count 
+-------
+  1376
+(1 row)
+
+Time: 465.563 ms
+ count 
+-------
+  1376
+(1 row)
+
+Time: 463.307 ms
+ count 
+-------
+  1376
+(1 row)
+
+Time: 440.194 ms
+ count 
+-------
+  1376
+(1 row)
+
+Time: 454.922 ms
+ count 
+-------
+  1376
+(1 row)
+
+Time: 433.645 ms
+ count 
+-------
+  1376
+(1 row)
+
+Time: 461.698 ms
+ count 
+-------
+  1376
+(1 row)
+
+Time: 473.744 ms
+ count 
+-------
+  1376
+(1 row)
+
+Time: 525.469 ms

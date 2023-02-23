@@ -1,0 +1,61 @@
+Timing is on.
+ count 
+-------
+    51
+(1 row)
+
+Time: 4.428 ms
+ count 
+-------
+    51
+(1 row)
+
+Time: 0.841 ms
+ count 
+-------
+    51
+(1 row)
+
+Time: 0.542 ms
+ count 
+-------
+    51
+(1 row)
+
+Time: 0.457 ms
+ count 
+-------
+    51
+(1 row)
+
+Time: 0.491 ms
+ count 
+-------
+    51
+(1 row)
+
+Time: 1.227 ms
+ count 
+-------
+    51
+(1 row)
+
+Time: 0.606 ms
+ count 
+-------
+    51
+(1 row)
+
+Time: 0.607 ms
+ count 
+-------
+    51
+(1 row)
+
+Time: 0.805 ms
+ count 
+-------
+    51
+(1 row)
+
+Time: 0.610 ms
