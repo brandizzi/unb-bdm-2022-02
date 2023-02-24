@@ -1,0 +1,13 @@
+GET viagens-*/_search?filter_path=took,aggregations.estacoes.value
+
+{
+  "size": 0,
+  "track_total_hits": true,
+  "aggs": {
+    "estacoes": {
+      "cardinality": {
+        "field": "idEstacaoRetirada"
+      }
+    }
+  }
+}

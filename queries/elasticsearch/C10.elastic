@@ -1,0 +1,12 @@
+GET viagens-*/_search?filter_path=took,hits.total.value
+{
+  "size": 0,
+  "track_total_hits": true,
+  "query": {
+    "range": {
+      "duracao": {
+        "gte": 60
+      }
+    }
+  }
+}

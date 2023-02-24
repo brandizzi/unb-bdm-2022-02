@@ -1,6 +1,4 @@
 ## Contar todas estacoess
-POST /viagens-*/_cache/clear
-
 GET viagens-*/_search
 {
   "size": 0,
@@ -15,9 +13,6 @@ GET viagens-*/_search
 }
 
 ## Contar todos embarques
-
-POST /viagens-*/_cache/clear
-
 GET viagens-*/_search
 {
   "size": 0,
@@ -28,9 +23,6 @@ GET viagens-*/_search
 }
 
 ## Contar todas viagens cujo embarque foi na extração Catedral Metropolitana (id 7)
-
-POST /viagens-*/_cache/clear
-
 GET viagens-*/_search
 {
   "size": 0,

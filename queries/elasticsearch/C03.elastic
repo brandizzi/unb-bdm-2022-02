@@ -1,0 +1,21 @@
+GET viagens-*/_search?filter_path=took,hits.total.value
+{
+  "size": 0,
+  "track_total_hits": true,
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "exists": {
+            "field": "idEstacaoRetirada"
+          }
+        },
+        {
+          "script": {
+            "script": "doc['idEstacaoRetirada'] == doc['idEstacaoDevolucao']"
+          }
+        }
+      ]
+    }
+  }
+}
