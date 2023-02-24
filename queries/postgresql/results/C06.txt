@@ -4,58 +4,58 @@ Timing is on.
   1376
 (1 row)
 
-Time: 497.590 ms
+Time: 436.496 ms
  count 
 -------
   1376
 (1 row)
 
-Time: 467.774 ms
+Time: 440.740 ms
  count 
 -------
   1376
 (1 row)
 
-Time: 465.563 ms
+Time: 429.675 ms
  count 
 -------
   1376
 (1 row)
 
-Time: 463.307 ms
+Time: 435.948 ms
  count 
 -------
   1376
 (1 row)
 
-Time: 440.194 ms
+Time: 399.603 ms
  count 
 -------
   1376
 (1 row)
 
-Time: 454.922 ms
+Time: 408.800 ms
  count 
 -------
   1376
 (1 row)
 
-Time: 433.645 ms
+Time: 392.785 ms
  count 
 -------
   1376
 (1 row)
 
-Time: 461.698 ms
+Time: 384.622 ms
  count 
 -------
   1376
 (1 row)
 
-Time: 473.744 ms
+Time: 397.428 ms
  count 
 -------
   1376
 (1 row)
 
-Time: 525.469 ms
+Time: 413.059 ms

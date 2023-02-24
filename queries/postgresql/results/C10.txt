@@ -4,58 +4,58 @@ Timing is on.
  205216
 (1 row)
 
-Time: 685.340 ms
+Time: 591.895 ms
  count  
 --------
  205216
 (1 row)
 
-Time: 675.633 ms
+Time: 582.926 ms
  count  
 --------
  205216
 (1 row)
 
-Time: 646.748 ms
+Time: 630.037 ms
  count  
 --------
  205216
 (1 row)
 
-Time: 662.963 ms
+Time: 625.877 ms
  count  
 --------
  205216
 (1 row)
 
-Time: 606.845 ms
+Time: 602.952 ms
  count  
 --------
  205216
 (1 row)
 
-Time: 608.805 ms
+Time: 605.203 ms
  count  
 --------
  205216
 (1 row)
 
-Time: 607.170 ms
+Time: 606.499 ms
  count  
 --------
  205216
 (1 row)
 
-Time: 609.611 ms
+Time: 619.360 ms
  count  
 --------
  205216
 (1 row)
 
-Time: 637.889 ms
+Time: 613.911 ms
  count  
 --------
  205216
 (1 row)
 
-Time: 617.308 ms
+Time: 574.530 ms

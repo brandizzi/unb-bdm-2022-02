@@ -1,61 +1,61 @@
 Timing is on.
- count 
--------
- 30832
+ count  
+--------
+ 389488
 (1 row)
 
-Time: 470.850 ms
- count 
--------
- 30832
+Time: 1872.673 ms (00:01.873)
+ count  
+--------
+ 389488
 (1 row)
 
-Time: 446.724 ms
- count 
--------
- 30832
+Time: 523.393 ms
+ count  
+--------
+ 389488
 (1 row)
 
-Time: 431.293 ms
- count 
--------
- 30832
+Time: 534.078 ms
+ count  
+--------
+ 389488
 (1 row)
 
-Time: 404.236 ms
- count 
--------
- 30832
+Time: 505.330 ms
+ count  
+--------
+ 389488
 (1 row)
 
-Time: 436.114 ms
- count 
--------
- 30832
+Time: 490.087 ms
+ count  
+--------
+ 389488
 (1 row)
 
-Time: 436.639 ms
- count 
--------
- 30832
+Time: 516.450 ms
+ count  
+--------
+ 389488
 (1 row)
 
-Time: 398.263 ms
- count 
--------
- 30832
+Time: 547.813 ms
+ count  
+--------
+ 389488
 (1 row)
 
-Time: 411.006 ms
- count 
--------
- 30832
+Time: 489.044 ms
+ count  
+--------
+ 389488
 (1 row)
 
-Time: 397.747 ms
- count 
--------
- 30832
+Time: 461.092 ms
+ count  
+--------
+ 389488
 (1 row)
 
-Time: 410.563 ms
+Time: 463.789 ms

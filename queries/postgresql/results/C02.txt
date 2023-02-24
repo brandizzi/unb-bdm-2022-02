@@ -4,58 +4,58 @@ Timing is on.
  2589552
 (1 row)
 
-Time: 307.074 ms
+Time: 414.811 ms
   count  
 ---------
  2589552
 (1 row)
 
-Time: 283.137 ms
+Time: 272.941 ms
   count  
 ---------
  2589552
 (1 row)
 
-Time: 282.637 ms
+Time: 285.703 ms
   count  
 ---------
  2589552
 (1 row)
 
-Time: 274.134 ms
+Time: 277.227 ms
   count  
 ---------
  2589552
 (1 row)
 
-Time: 299.566 ms
+Time: 272.773 ms
   count  
 ---------
  2589552
 (1 row)
 
-Time: 277.421 ms
+Time: 276.085 ms
   count  
 ---------
  2589552
 (1 row)
 
-Time: 309.936 ms
+Time: 280.135 ms
   count  
 ---------
  2589552
 (1 row)
 
-Time: 289.873 ms
+Time: 273.525 ms
   count  
 ---------
  2589552
 (1 row)
 
-Time: 320.506 ms
+Time: 274.353 ms
   count  
 ---------
  2589552
 (1 row)
 
-Time: 322.813 ms
+Time: 280.452 ms

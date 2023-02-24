@@ -1,61 +1,61 @@
 Timing is on.
  count 
 -------
-  2704
+ 30832
 (1 row)
 
-Time: 430.220 ms
+Time: 443.156 ms
  count 
 -------
-  2704
+ 30832
 (1 row)
 
-Time: 392.052 ms
+Time: 406.403 ms
  count 
 -------
-  2704
+ 30832
 (1 row)
 
-Time: 395.382 ms
+Time: 449.600 ms
  count 
 -------
-  2704
+ 30832
 (1 row)
 
-Time: 385.055 ms
+Time: 411.563 ms
  count 
 -------
-  2704
+ 30832
 (1 row)
 
-Time: 388.936 ms
+Time: 410.195 ms
  count 
 -------
-  2704
+ 30832
 (1 row)
 
-Time: 397.883 ms
+Time: 391.506 ms
  count 
 -------
-  2704
+ 30832
 (1 row)
 
-Time: 384.652 ms
+Time: 397.663 ms
  count 
 -------
-  2704
+ 30832
 (1 row)
 
-Time: 390.671 ms
+Time: 465.734 ms
  count 
 -------
-  2704
+ 30832
 (1 row)
 
-Time: 391.650 ms
+Time: 483.535 ms
  count 
 -------
-  2704
+ 30832
 (1 row)
 
-Time: 385.812 ms
+Time: 494.763 ms

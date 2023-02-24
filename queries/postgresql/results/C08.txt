@@ -4,58 +4,58 @@ Timing is on.
   3120
 (1 row)
 
-Time: 545.508 ms
+Time: 440.120 ms
  count 
 -------
   3120
 (1 row)
 
-Time: 457.925 ms
+Time: 429.135 ms
  count 
 -------
   3120
 (1 row)
 
-Time: 461.175 ms
+Time: 464.010 ms
  count 
 -------
   3120
 (1 row)
 
-Time: 439.580 ms
+Time: 430.805 ms
  count 
 -------
   3120
 (1 row)
 
-Time: 450.794 ms
+Time: 416.985 ms
  count 
 -------
   3120
 (1 row)
 
-Time: 434.416 ms
+Time: 434.999 ms
  count 
 -------
   3120
 (1 row)
 
-Time: 442.710 ms
+Time: 410.790 ms
  count 
 -------
   3120
 (1 row)
 
-Time: 446.152 ms
+Time: 406.916 ms
  count 
 -------
   3120
 (1 row)
 
-Time: 438.158 ms
+Time: 413.658 ms
  count 
 -------
   3120
 (1 row)
 
-Time: 450.278 ms
+Time: 421.624 ms
