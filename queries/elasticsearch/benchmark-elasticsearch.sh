@@ -2,7 +2,7 @@
 NUMBER_OF_TIMES=$1
 ELASTICSEARCH_URL=$2
 USERNAME=elastic
-PASSWORD=8mj7S578l8PqZ0tBl61ASR0w
+PASSWORD=...
 mkdir -p results
 for f in C*.elastic
 do
