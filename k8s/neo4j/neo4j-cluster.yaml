@@ -16,7 +16,7 @@ metadata:
 type: Opaque
 data:
   username: "bmVvNGo="
-  password: "JHkkajlUJHJMc0s5Q3JWTXFpM0VJTWdrMnhObi8kOVVpVHFYM0g5aG1kMFNWQ2hBakpIZ0VZa08zSXRXckVGZXVsRGFEazQvQw=="
+  password: "...=="
 ---
 # Source: neo4j-ce/templates/neo4j-pvc.yaml
 kind: PersistentVolumeClaim
