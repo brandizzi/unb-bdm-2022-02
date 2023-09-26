@@ -80,4 +80,4 @@ metadata:
   namespace: pgadmin
 type: Opaque
 data:
-  pgadmin-default-password: RW50cmFkYTEyMw==
+  pgadmin-default-password: ...
